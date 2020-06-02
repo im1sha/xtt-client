@@ -27,6 +27,7 @@ export class TripComponent implements OnInit {
     endTime: number;
     name: string;
 
+    // html markup only
     temp: Vertex = new Vertex();
 
     tableMode: boolean = true;
@@ -54,7 +55,7 @@ export class TripComponent implements OnInit {
             );
     }
 
-    cancel() {
+    cancel() {       
         this.temp = new Vertex();
         this.tableMode = true;
     }
@@ -90,9 +91,9 @@ export class TripComponent implements OnInit {
             });
     }
 
-    saveForbiddenOne() {
-        if (!this.forbidden.some(item => item === this.temp)) {
-            this.forbidden.push(this.temp);
+    saveForbiddenOne(p: Vertex) {
+        if (!this.forbidden.some(item => item === p)) {
+            this.forbidden.push(p);
         }
         this.cancel();
     }
@@ -104,9 +105,9 @@ export class TripComponent implements OnInit {
         }
     }
 
-    saveRequiredOne() {
-        if (!this.required.some(item => item === this.temp)) {
-            this.required.push(this.temp);
+    saveRequiredOne(p: Vertex) {
+        if (!this.required.some(item => item === p)) {
+            this.required.push(p);
         }
         this.cancel();
     }

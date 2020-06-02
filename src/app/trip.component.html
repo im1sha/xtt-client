@@ -106,7 +106,7 @@
     </div>
 
     <div>
-        <input type="button" value="Save" (click)="addRequiredVertexNow ? saveRequiredOne() : saveForbiddenOne()" class="btn btn-primary" />
+        <input type="button" value="Save" (click)="addRequiredVertexNow ? saveRequiredOne(temp) : saveForbiddenOne(temp)" class="btn btn-primary" />
         <input type="button" value="Discard" (click)="cancel()" class="btn btn-danger" />
     </div>
 </ng-template>
