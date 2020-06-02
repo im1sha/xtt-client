@@ -1,3 +1,3 @@
-﻿export class PathModel {
+export class PathModel {
     constructor(public ok?: boolean, public url?: string) { }
 }

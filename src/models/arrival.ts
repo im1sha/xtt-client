@@ -1,4 +1,4 @@
-﻿import { Interval } from "./interval";
+import { Interval } from "./interval";
 import { Vertex } from "./vertex";
 import { Edge } from "./edge";
 

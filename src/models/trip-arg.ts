@@ -1,4 +1,4 @@
-﻿import { Vertex } from "./vertex";
+import { Vertex } from "./vertex";
 
 export class TripArg {
     constructor(public bidirectional?: boolean,

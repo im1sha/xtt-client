@@ -1,4 +1,4 @@
-﻿import { Vertex } from "./vertex";
+import { Vertex } from "./vertex";
 
 export class RouteArg {
     constructor(public bidirectional?: boolean,

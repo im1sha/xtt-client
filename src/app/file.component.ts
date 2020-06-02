@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FilesService } from '../services/files.service';
 import { FileModel } from '../models/file-model';
 

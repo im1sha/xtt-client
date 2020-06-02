@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SchemeGetService } from '../services/scheme-get.service';
 import { FileUploadService } from '../services/file-upload.service';
 import { TripService } from '../services/trip.service';

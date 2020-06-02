@@ -1,4 +1,4 @@
-﻿import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,8 +11,6 @@ import { PathComponent } from './path.component';
 import { TripComponent } from './trip.component';
 import { NotFoundComponent } from './not-found.component';
 
-
-// определение маршрутов
 const appRoutes: Routes = [
     { path: '', component: ListComponent },
     { path: 'file', component: FileComponent },
@@ -26,7 +24,7 @@ const appRoutes: Routes = [
     imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
     declarations: [AppComponent, ListComponent, FileComponent,
         PathComponent, TripComponent, NotFoundComponent],
-    //providers: [FilesService, SchemeGetService],
+    providers: [],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

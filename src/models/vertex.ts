@@ -1,4 +1,4 @@
-﻿import { SchemeItem } from "./scheme-item";
+import { SchemeItem } from "./scheme-item";
 import { Coordinate } from "./coordinate";
 
 export class Vertex extends SchemeItem {

@@ -1,4 +1,4 @@
-﻿import { Vertex } from "./vertex";
+import { Vertex } from "./vertex";
 import { Edge } from "./edge";
 
 export class Scheme {

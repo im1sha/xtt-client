@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SchemeGetService } from '../services/scheme-get.service';
 import { PathService } from '../services/path.service';
 import { Vertex } from '../models/vertex';

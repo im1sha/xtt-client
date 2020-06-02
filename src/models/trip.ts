@@ -1,4 +1,4 @@
-﻿import { Arrival } from "./arrival";
+import { Arrival } from "./arrival";
 import { TripArg } from "./trip-arg";
 
 export class Trip {

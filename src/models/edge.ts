@@ -1,4 +1,4 @@
-﻿import { Vertex } from "./vertex";
+import { Vertex } from "./vertex";
 import { SchemeItem } from "./scheme-item";
 
 export class Edge extends SchemeItem{

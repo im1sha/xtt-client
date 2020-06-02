@@ -1,4 +1,4 @@
-﻿export class Interval {
+export class Interval {
     constructor(public begin?: number,
         public end?: number) { }
 
