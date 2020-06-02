@@ -1,0 +1,54 @@
+﻿<h1>Files list</h1>
+<input type="button" value="Add" class="btn btn-default" (click)="addFile()" />
+<table *ngIf="tableMode; else create" class="table table-striped">
+    <thead>
+        <tr>
+            <td>name</td>
+            <td>path</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of files">
+            <ng-template [ngIf]="file?.id != p.id" [ngIfElse]="edit">
+                <td>{{p?.name}}</td>
+                <td>{{p?.path}}</td>
+                <td>
+                    <button class="btn btn-sm btn-primary" (click)="editFile(p)">change</button>
+                    <button class="btn btn-sm btn-danger" (click)="dropFile(p)">delete</button>
+                </td>
+            </ng-template>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #edit>
+    <td>
+        <input type="text" [(ngModel)]="file.name" class="form-control" />
+    </td>
+    <td>
+        <input type="text" [(ngModel)]="file.path" class="form-control" />
+    </td>
+    <td>
+        <input type="button" value="save" (click)="save()" class="btn btn-sm btn-success" />
+        <input type="button" value="discard" (click)="cancel()" class="btn btn-sm btn-warning" />
+    </td>
+</ng-template>
+
+<ng-template #create>
+    <div class="form-group">
+        <label>name</label>
+        <input type="text" [(ngModel)]="file.name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>path</label>
+        <input type="text" [(ngModel)]="file.path" class="form-control" />
+    </div>
+   
+    <div>
+        <input type="button" value="save" (click)="save()" class="btn btn-success" />
+        <input type="button" value="discard" (click)="cancel()" class="btn btn-warning" />
+    </div>
+</ng-template>
+
+

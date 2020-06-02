@@ -1,0 +1,104 @@
+﻿<h1>Path to create</h1>
+
+<!--<div class="form-group">
+    <label for="file">Choose File</label>
+    <input type="file"
+           id="file"
+           (change)="handleFileInput($event.target.files)">
+    <input type="button" value="Submit" class="btn btn-default" (click)="uploadFileToActivity()" />
+
+</div>-->
+
+<div>Begin</div>
+<div class="form-group">
+    <select class="form-control" [(ngModel)]="begin">
+        <option *ngFor="let ver of allVertices" [ngValue]="ver">
+            {{ver?.id}}
+        </option>
+    </select>
+</div>
+<div>End</div>
+<div class="form-group">
+    <select class="form-control" [(ngModel)]="end">
+        <option *ngFor="let ver of allVertices" [ngValue]="ver">
+            {{ver?.id}}
+        </option>
+    </select>
+</div>
+<div>Bidirectional move allowed</div>
+<div class="form-group">
+    <select class="form-control" [(ngModel)]="bidirectional">
+        <option [ngValue]="true">Yes</option>
+        <option [ngValue]="false">No</option>
+    </select>
+</div>
+
+<input type="button" value="Add forbidden node" class="btn btn-default" (click)="addForbiddenOne()" />
+<br>
+<br>
+<div *ngIf="tableMode; else create">
+    <table *ngIf="forbidden?.length !== 0" class="table table-striped">
+        <thead>
+            <tr>
+                <td>Forbidden vertex ID</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of forbidden">
+                <ng-template [ngIf]="temp?.id != p.id">
+                    <td>{{p?.id}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" (click)="dropForbiddenOne(p)">Delete</button>
+                    </td>
+                </ng-template>
+            </tr>
+        </tbody>
+    </table>
+    <input type="button" value="Submit" class="btn btn-default" (click)="displayData()" />
+</div>
+
+<ng-template #create>
+    <div class="form-group">
+        <select class="form-control" [(ngModel)]="temp">
+            <option *ngFor="let ver of allVertices" [ngValue]="ver">
+                {{ver?.id}}
+            </option>
+        </select>
+    </div>
+
+    <div>
+        <input type="button" value="Save" (click)="saveForbiddenOne()" class="btn btn-primary" />
+        <input type="button" value="Discard" (click)="cancel()" class="btn btn-danger" />
+    </div>
+</ng-template>
+
+<div *ngIf="route != null; else notFound">
+    <br>
+    <div><b>Found path</b></div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Vertex ID</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of route?.vertices">
+                <td>{{p?.id}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <input type="button" value="Convert" class="btn btn-default" (click)="convertToFile()" />
+</div>
+<ng-template #notFound>
+    <br>
+    <div>No path found</div>
+</ng-template>
+
+<div *ngIf="pathToDownload != null">
+    <br>
+    <div><b><a [href]="downloadUrl+pathToDownload">
+        Converted file
+    </a></b></div>
+</div>
