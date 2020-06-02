@@ -18,4 +18,8 @@ export class TripService {
     postObject(routeArg: TripArg) {
         return this.http.post(this.url + '/object', routeArg);
     }
+
+    retrieveTripFromFile(url: string) {
+        return this.http.post(this.url + '/' + url, new Object());
+    }
 }

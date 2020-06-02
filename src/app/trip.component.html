@@ -1,15 +1,33 @@
-<h1>Path to create</h1>
+<h1>Trip</h1>
 
-<!--<div class="form-group">
-    <label for="file">Choose File</label>
+<div class="form-group">
+    <label for="file">Upload your file</label>
     <input type="file"
-           id="file"
+           id="file" 
+           accept="text/xml" 
            (change)="handleFileInput($event.target.files)">
+    <br>
     <input type="button" value="Submit" class="btn btn-default" (click)="uploadFileToActivity()" />
 
-</div>-->
+</div>
 
-<!--<div>Begin</div>
+<br>
+<label><i>-Or create new trip-</i></label>
+<br>
+<br>
+<div>Name</div>
+<div class="form-group">
+    <input class="form-control" [(ngModel)]="name">
+</div>
+<div>Begin time</div>
+<div class="form-group">
+    <input class="form-control" [(ngModel)]="beginTime" type="number">
+</div>
+<div>End time</div>
+<div class="form-group">
+    <input class="form-control" [(ngModel)]="endTime" type="number">
+</div>
+<div>Begin vertex</div>
 <div class="form-group">
     <select class="form-control" [(ngModel)]="begin">
         <option *ngFor="let ver of allVertices" [ngValue]="ver">
@@ -17,7 +35,7 @@
         </option>
     </select>
 </div>
-<div>End</div>
+<div>End vertex</div>
 <div class="form-group">
     <select class="form-control" [(ngModel)]="end">
         <option *ngFor="let ver of allVertices" [ngValue]="ver">
@@ -33,7 +51,9 @@
     </select>
 </div>
 
-<input type="button" value="Add forbidden node" class="btn btn-default" (click)="addForbiddenOne()" />
+<input type="button" value="Add forbidden node" class="btn btn-default" (click)="addForbiddenOne()" /><span> | </span>
+<input type="button" value="Add required node" class="btn btn-default" (click)="addRequiredOne()" />
+
 <br>
 <br>
 <div *ngIf="tableMode; else create">
@@ -55,6 +75,24 @@
             </tr>
         </tbody>
     </table>
+    <table *ngIf="required?.length !== 0" class="table table-striped">
+        <thead>
+            <tr>
+                <td>Required vertex ID</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of required">
+                <ng-template [ngIf]="temp?.id != p.id">
+                    <td>{{p?.id}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" (click)="dropRequiredOne(p)">Delete</button>
+                    </td>
+                </ng-template>
+            </tr>
+        </tbody>
+    </table>
     <input type="button" value="Submit" class="btn btn-default" (click)="displayData()" />
 </div>
 
@@ -68,41 +106,54 @@
     </div>
 
     <div>
-        <input type="button" value="Save" (click)="saveForbiddenOne()" class="btn btn-primary" />
+        <input type="button" value="Save" (click)="addRequiredVertexNow ? saveRequiredOne() : saveForbiddenOne()" class="btn btn-primary" />
         <input type="button" value="Discard" (click)="cancel()" class="btn btn-danger" />
     </div>
 </ng-template>
 
-<div *ngIf="route != null; else notFound">
+<div *ngIf="trip != null; else notFound">
     <br>
-    <div><b>Found path</b></div>
+    <div><b>Found trip</b></div>
     <table class="table table-striped">
         <thead>
             <tr>
                 <td>Vertex ID</td>
-                <td></td>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let p of route?.vertices">
-                <td>{{p?.id}}</td>
+            <tr *ngFor="let p of trip?.arrivals">
+                <td>{{p?.vertex?.id}} ({{p?.vertexInterval?.begin}} {{p?.vertexInterval?.end}})</td>
             </tr>
         </tbody>
     </table>
     <input type="button" value="Convert" class="btn btn-default" (click)="convertToFile()" />
+    
+    <!-- <ng-template #edit>
+        <td>
+            <input type="text" [(ngModel)]="file.name" class="form-control" />
+        </td>
+        <td>
+            <input type="text" [(ngModel)]="file.path" class="form-control" />
+        </td>
+        <td>
+            <input type="button" value="save" (click)="save()" class="btn btn-sm btn-success" />
+            <input type="button" value="discard" (click)="cancel()" class="btn btn-sm btn-warning" />
+        </td>
+    </ng-template> -->
+    
 </div>
 <ng-template #notFound>
     <br>
-    <div>No path found</div>
+    <div>No trip created</div>
 </ng-template>
 
 <div *ngIf="pathToDownload != null">
     <br>
     <div>
         <b>
-            <a [href]="downloadUrl+pathToDownload">
+            <a [href]="downloadUrl+pathToDownload" target="_blank">
                 Converted file
             </a>
         </b>
     </div>
-</div>-->
+</div>
