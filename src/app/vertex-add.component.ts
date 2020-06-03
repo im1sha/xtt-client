@@ -14,9 +14,12 @@ export class VertexAddComponent {
     temp: Vertex = new Vertex();
 
     add() {
-        if (!this.list.some(item => item === this.temp)) {
-            this.list.push(this.temp);
-            this.onChanged.emit(this.list);
+        if (this.temp.id) {
+            if (!this.list.some(item => item === this.temp)) {
+                this.list.push(this.temp);
+                this.onChanged.emit(this.list);
+            }
+            this.temp = new Vertex();
         }
     }
 

@@ -7,11 +7,12 @@ import { TripArg } from '../models/trip-arg';
 import { Trip } from '../models/trip';
 import { PathModel } from '../models/path-model';
 import { Arrival } from 'src/models/arrival';
+import { LinkRestoreService } from 'src/services/link-restore.service';
 
 @Component({
     selector: 'trip-comp',
     templateUrl: './trip.component.html',
-    providers: [SchemeGetService, TripService, FileUploadService]
+    providers: [SchemeGetService, TripService, FileUploadService, LinkRestoreService]
 })
 export class TripComponent implements OnInit {
 
@@ -23,15 +24,14 @@ export class TripComponent implements OnInit {
 
     allVertices: Vertex[] = [];
 
-    trip: Trip = new Trip();
-    tripArg: TripArg = new TripArg();
+    trip: Trip = new Trip(new TripArg(), []);
 
     pathToDownload: string = null;
 
-
     constructor(
         private schemeService: SchemeGetService,
-        private tripService: TripService) { }
+        private tripService: TripService,
+        private restoreService: LinkRestoreService) { }
 
     ngOnInit() {
         this.schemeService
@@ -41,14 +41,35 @@ export class TripComponent implements OnInit {
             );
     }
 
+    restoreTrip(trip: Trip) {
+        if (!trip) {
+            trip = new Trip(new TripArg(), []);
+        }
+        else if (!trip.arrivals) {
+            trip.arrivals = [];
+        }
+        else if (!trip.tripArg) {
+            trip.tripArg = new TripArg();
+        }
+
+        this.restoreService.restoreTripArgVertices(
+            this.allVertices, 
+            trip.tripArg);       
+
+        this.trip.arrivals = trip.arrivals;
+        this.trip.tripArg = trip.tripArg;
+    }
+
     uploadFile(trip: Trip) {
-        this.tripArg = trip.tripArg ? trip.tripArg : new TripArg();    
-        this.trip = trip;
-        this.trip.tripArg = this.tripArg;
+        this.restoreTrip(trip);
     }
 
     convertToFile() {
 
+       // !! POSTS tripArg AND GETS APPROPRIATE TRIP
+       // but should not
+
+        console.log(this.trip);
         this.tripService
             .postFile(this.trip?.tripArg)
             .subscribe((data: PathModel) => {
@@ -58,44 +79,13 @@ export class TripComponent implements OnInit {
             });
     }
 
+    createTripArg(_: TripArg) {
 
-    createTripArg(event: TripArg) {
-        this.trip = new Trip(event, null);
         this.tripService
             .postObject(this.trip?.tripArg)
             .subscribe((data: Trip) => {
-                console.log(data);
-                this.trip = (data == null || data.arrivals == null)
-                    ? null
-                    : data;
+                this.restoreTrip(data);
                 this.pathToDownload = null;
             });
     }
-
-
-    // addArrivalBefore(p: Arrival) {
-
-    // }
-
-    // addArrivalAfter(p: Arrival) {
-
-    // }
-
-    // dropArrival(p: Arrival) {
-    //     if (this.trip !== null && this.trip.arrivals !== null) {
-    //         let index = this.trip.arrivals.findIndex((el) => el === p);
-    //         if (index > -1) {
-    //             this.trip.arrivals.splice(index, 1);
-    //         }
-    //     }
-    // }
-
-    // editArrival(p: Arrival) {
-
-    // }
-
-    // onArrivalChanged(arr: Arrival) {
-    //     // this.vertexToChange = vertex;
-    //     console.log(arr);
-    // }
 }

@@ -11,7 +11,7 @@
 <hr/>
 
 <trip-arg-create 
-    [tripArg]="tripArg"
+    [trip]="trip"
     [header]="createTripArgHeader" 
     [allVertices]="allVertices"
     (onCompleted)="createTripArg($event)">
@@ -19,54 +19,19 @@
 
 <hr/>
 
-<div *ngIf="trip != null && trip.arrivals != null; else notFound">
-    <br>
-    <div><b>Found trip</b></div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <td>Vertex ID</td>
-                <td>Arrival time</td>
-                <!-- <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td> -->
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let p of trip?.arrivals">
-                <td>{{p?.vertex?.id}}</td>
-                <td>{{p?.vertexInterval?.begin}}</td>
-                <!-- <td></td>
-                <td></td>
-                <td>
-                    <button class="btn btn-sm btn-default" (click)="editArrival(p)">Edit</button>
-                </td>
-                <td>
-                    <button class="btn btn-sm btn-danger" (click)="dropArrival(p)">Delete</button>
-                </td>
-                <td>
-                    <button class="btn btn-sm btn-default" (click)="addArrivalBefore(p)">Add before</button>
-                </td>
-                <td>
-                    <button class="btn btn-sm btn-default" (click)="addArrivalAfter(p)">Add after</button>
-                </td> -->
-            </tr>
-        </tbody>
-    </table>
+<arrival-list
+    [trip]="trip" >
+</arrival-list>
+
+<div *ngIf="trip?.arrivals?.length != 0" class="form-group">
     <input type="button" value="Convert" class="btn btn-default" (click)="convertToFile()" />
 </div>
 
-<ng-template #notFound>
-    <br>
-    <div>No trip created</div>
-</ng-template>
+<hr/>
 
-<div *ngIf="pathToDownload != null">
-    <br>
-    <div>
+<div *ngIf="pathToDownload != null" class="form-group">
+    <h3>Download result xml file[now sends only trip-arg]</h3>
+    <div class="form-group">
         <b>
             <a [href]="downloadUrl+pathToDownload" target="_blank">
                 Converted file
@@ -74,6 +39,5 @@
         </b>
     </div>
 </div>
-
 
 <br><br><br> 

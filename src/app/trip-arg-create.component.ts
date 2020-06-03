@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Trip } from 'src/models/trip';
 import { TripArg } from 'src/models/trip-arg';
 import { Vertex } from 'src/models/vertex';
 
@@ -13,21 +14,21 @@ export class TripArgCreateComponent {
     readonly requiredHeader: string = "Required vertices";
 
     @Input() header: string = "";
-    @Input() tripArg: TripArg = new TripArg(false);
+    @Input() trip: Trip;
     @Input() allVertices : Vertex[];
     @Output() onCompleted = new EventEmitter<TripArg>();
 
     save() {
-        this.onCompleted.emit(this.tripArg);
+        this.onCompleted.emit(this.trip?.tripArg);
     }
 
     requiredChanged(event: Vertex[]) {
-        if (this.tripArg)
-            this.tripArg.requiredNodes = event;
+        if (this.trip && this.trip.tripArg)
+            this.trip.tripArg.requiredNodes = event;
     }
 
     forbiddenChanged(event: Vertex[]) {
-        if (this.tripArg)
-            this.tripArg.forbiddenNodes = event;
+        if (this.trip && this.trip.tripArg)
+            this.trip.tripArg.forbiddenNodes = event;
     }
 }

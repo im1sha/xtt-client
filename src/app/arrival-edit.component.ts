@@ -4,10 +4,11 @@ import { Arrival } from 'src/models/arrival';
 import { Interval } from 'src/models/interval';
 
 @Component({
-    selector: 'arrival-add',
-    templateUrl: './arrival-add.component.html',
+    selector: 'arrival-edit',
+    templateUrl: './arrival-edit.component.html',
 })
-export class ArrivalAddComponent {
+export class ArrivalEditComponent {
+
     @Input() beginTime: number;
     @Input() endTime: number;
     @Input() allVertices: Vertex[];
@@ -16,23 +17,24 @@ export class ArrivalAddComponent {
 
     @Output() onSaved = new EventEmitter<Arrival>();
 
-    result: Arrival;
+    result: Arrival = new Arrival(new Interval(), null, null, null);
 
-    dataChanged(event: Vertex) {      
-        this.result = new Arrival(
-            new Interval(this.beginTime, this.endTime),
-            null,
-            event,
-            null);
+    ngOnInit() {
+        this.reset();
     }
 
+    reset() {
+        this.result.vertex = this.selectedVertex;
+        this.result.vertexInterval.begin = this.beginTime;
+        this.result.vertexInterval.end = this.endTime;
+    }
+    
     save() {
-        console.log(this.result);
-        if (this.beginTime === undefined) this.beginTime = 0;
-        if (this.endTime === undefined) this.endTime = 0;
         this.onSaved.emit(this.result);
-    }
+    }   
 
-    cancel() {
+    discard(){
+        this.reset();
+        this.onSaved.emit(this.result);
     }
 }

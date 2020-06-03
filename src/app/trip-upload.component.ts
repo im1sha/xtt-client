@@ -4,11 +4,12 @@ import { Trip } from 'src/models/trip';
 import { FileUploadService } from 'src/services/file-upload.service';
 import { TripService } from 'src/services/trip.service';
 import { TripArg } from 'src/models/trip-arg';
+import { LinkRestoreService } from 'src/services/link-restore.service';
 
 @Component({
     selector: 'trip-upload',
     templateUrl: './trip-upload.component.html',
-    providers: [FileUploadService, TripService]
+    providers: [FileUploadService, TripService, LinkRestoreService]
 })
 export class TripUploadComponent {
 
@@ -21,7 +22,8 @@ export class TripUploadComponent {
 
     constructor(
         private fileUploadService: FileUploadService,
-        private tripService: TripService) {
+        private tripService: TripService,
+        private restoreService: LinkRestoreService) {
     }
 
     handleFileInput(files: FileList) {
@@ -35,41 +37,24 @@ export class TripUploadComponent {
                     this.tripService.retrieveTripFromFile(data.url)
                         .subscribe((tr: Trip) => {
 
-                            let result: Trip = null;
+                            let result: Trip = new Trip(new TripArg(), []);
 
                             if (tr != null) {
-                                result = new Trip(null, tr.arrivals);
+                                result.arrivals = !tr.arrivals 
+                                    ? [] 
+                                    : tr.arrivals;
+                                result.tripArg = !tr.tripArg 
+                                    ? new TripArg() 
+                                    : tr.tripArg;
 
-                                if (tr.tripArg != null) {
-                                    result.tripArg = new TripArg();
-
-                                    result.tripArg.source = this.allVertices.find(i => i.id === tr.tripArg.source?.id);
-                                    result.tripArg.destination = this.allVertices.find(i => i.id === tr.tripArg.destination?.id);
-
-                                    let required: Vertex[] = [];
-                                    tr.tripArg.requiredNodes?.forEach(element => {
-                                        required.push(this.allVertices.find(i => i.id === element?.id));
-                                    });
-                                    let forbidden: Vertex[] = [];
-                                    tr.tripArg.forbiddenNodes?.forEach(element => {
-                                        forbidden.push(this.allVertices.find(i => i.id === element?.id));
-                                    });
-
-                                    result.tripArg.requiredNodes = required;
-                                    result.tripArg.forbiddenNodes = forbidden;
-                                    result.tripArg.bidirectional = tr.tripArg.bidirectional;
-                                    result.tripArg.beginTime = tr.tripArg.beginTime;
-                                    result.tripArg.endTime = tr.tripArg.endTime;
-                                    result.tripArg.name = tr.tripArg.name;
-                                }
+                                this.restoreService.restoreTripArgVertices(
+                                    this.allVertices, 
+                                    result.tripArg);                                
                             }
                             this.onCompleted.emit(result);
 
                         }, error => { console.log(error); });
                 }, error => { console.log(error); });
-        }
-        else {
-            this.onCompleted.emit(new Trip());
         }
     }
 }

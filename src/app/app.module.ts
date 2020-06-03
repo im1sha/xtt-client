@@ -10,10 +10,11 @@ import { FileComponent } from './file.component';
 import { PathComponent } from './path.component';
 import { TripComponent } from './trip.component';
 import { NotFoundComponent } from './not-found.component';
-import { ArrivalAddComponent } from './arrival-add.component';
+import { ArrivalListComponent } from './arrival-list.component';
 import { TripUploadComponent } from './trip-upload.component';
 import { VertexAddComponent } from './vertex-add.component';
 import { TripArgCreateComponent } from './trip-arg-create.component';
+import { ArrivalEditComponent } from './arrival-edit.component';
 
 const appRoutes: Routes = [
     { path: '', component: ListComponent },
@@ -33,10 +34,11 @@ const appRoutes: Routes = [
         PathComponent, 
         TripComponent,
         NotFoundComponent, 
-        ArrivalAddComponent,
+        ArrivalListComponent,
         TripUploadComponent,
         VertexAddComponent,
         TripArgCreateComponent,
+        ArrivalEditComponent,
     ],
     providers: [],
     bootstrap: [AppComponent]
