@@ -1,0 +1,26 @@
+<div>
+    <h3>{{header}}</h3>
+    <div>Begin time</div>
+    <div class="form-group">
+        <input class="form-control" [(ngModel)]="beginTime" type="number">
+    </div>
+    <div>End time</div>
+    <div class="form-group">
+        <input class="form-control" [(ngModel)]="endTime" type="number">
+    </div>
+    <div>Vertex</div>
+    <div class="form-group">
+        <select (ngModelChange) = "dataChanged($event)" 
+                class="form-control"
+                [(ngModel)]="selectedVertex">
+            <option *ngFor="let ver of allVertices" [ngValue]="ver">
+                {{ver?.id}}
+            </option>
+        </select>
+    </div>
+
+    <div>
+        <input type="button" value="Save" (click)="save()" class="btn btn-primary" />
+        <input type="button" value="Discard" (click)="cancel()" class="btn btn-danger" />
+    </div>
+</div>

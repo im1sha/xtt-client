@@ -1,0 +1,47 @@
+
+<div>
+    <h3>{{header}}</h3>
+    <div class="form-group">       
+        <div>Source vertex</div>
+        <div class="form-group">
+            <select class="form-control" [(ngModel)]="tripArg.source">
+                <option *ngFor="let ver of allVertices" [ngValue]="ver">
+                    {{ver?.id}}
+                </option>
+            </select>
+        </div>
+        <div>Destination vertex</div>
+        <div class="form-group">
+            <select class="form-control" [(ngModel)]="tripArg.destination">
+                <option *ngFor="let ver of allVertices" [ngValue]="ver">
+                    {{ver?.id}}
+                </option>
+            </select>
+        </div>
+        <vertex-add [list]="tripArg?.requiredNodes" [header]="requiredHeader" [allVertices]="allVertices" (onChanged)="requiredChanged($event)"></vertex-add>
+        <vertex-add [list]="tripArg?.forbiddenNodes" [header]="forbiddenHeader" [allVertices]="allVertices" (onChanged)="forbiddenChanged($event)"></vertex-add>
+        <div>Name</div>
+        <div class="form-group">
+            <input class="form-control" [(ngModel)]="tripArg.name">
+        </div>
+        <div>Begin time</div>
+        <div class="form-group">
+            <input class="form-control" [(ngModel)]="tripArg.beginTime" type="number">
+        </div>
+        <div>End time</div>
+        <div class="form-group">
+            <input class="form-control" [(ngModel)]="tripArg.endTime" type="number">
+        </div>
+        <div>Bidirectional move allowed</div>
+        <div class="form-group">
+            <select class="form-control" [(ngModel)]="tripArg.bidirectional">
+                <option [ngValue]="true">Yes</option>
+                <option [ngValue]="false">No</option>
+            </select>
+        </div>
+    </div>
+
+    <div>
+        <input type="button" value="Create" (click)="save()" class="btn btn-primary" />
+    </div>
+</div>

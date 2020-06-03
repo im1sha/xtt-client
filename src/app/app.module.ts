@@ -10,6 +10,10 @@ import { FileComponent } from './file.component';
 import { PathComponent } from './path.component';
 import { TripComponent } from './trip.component';
 import { NotFoundComponent } from './not-found.component';
+import { ArrivalAddComponent } from './arrival-add.component';
+import { TripUploadComponent } from './trip-upload.component';
+import { VertexAddComponent } from './vertex-add.component';
+import { TripArgCreateComponent } from './trip-arg-create.component';
 
 const appRoutes: Routes = [
     { path: '', component: ListComponent },
@@ -22,8 +26,18 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
-    declarations: [AppComponent, ListComponent, FileComponent,
-        PathComponent, TripComponent, NotFoundComponent],
+    declarations: [
+        AppComponent, 
+        ListComponent,
+        FileComponent,
+        PathComponent, 
+        TripComponent,
+        NotFoundComponent, 
+        ArrivalAddComponent,
+        TripUploadComponent,
+        VertexAddComponent,
+        TripArgCreateComponent,
+    ],
     providers: [],
     bootstrap: [AppComponent]
 })

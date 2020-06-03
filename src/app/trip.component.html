@@ -1,147 +1,64 @@
 <h1>Trip</h1>
 
-<div class="form-group">
-    <label for="file">Upload your file</label>
-    <input type="file"
-           id="file" 
-           accept="text/xml" 
-           (change)="handleFileInput($event.target.files)">
-    <br>
-    <input type="button" value="Submit" class="btn btn-default" (click)="uploadFileToActivity()" />
+<hr/>
 
-</div>
+<trip-upload 
+    [header]="tripUploadHeader" 
+    [allVertices]="allVertices"
+    (onCompleted)="uploadFile($event)">
+</trip-upload>
 
-<br>
-<label><i>-Or create new trip-</i></label>
-<br>
-<br>
-<div>Name</div>
-<div class="form-group">
-    <input class="form-control" [(ngModel)]="name">
-</div>
-<div>Begin time</div>
-<div class="form-group">
-    <input class="form-control" [(ngModel)]="beginTime" type="number">
-</div>
-<div>End time</div>
-<div class="form-group">
-    <input class="form-control" [(ngModel)]="endTime" type="number">
-</div>
-<div>Begin vertex</div>
-<div class="form-group">
-    <select class="form-control" [(ngModel)]="begin">
-        <option *ngFor="let ver of allVertices" [ngValue]="ver">
-            {{ver?.id}}
-        </option>
-    </select>
-</div>
-<div>End vertex</div>
-<div class="form-group">
-    <select class="form-control" [(ngModel)]="end">
-        <option *ngFor="let ver of allVertices" [ngValue]="ver">
-            {{ver?.id}}
-        </option>
-    </select>
-</div>
-<div>Bidirectional move allowed</div>
-<div class="form-group">
-    <select class="form-control" [(ngModel)]="bidirectional">
-        <option [ngValue]="true">Yes</option>
-        <option [ngValue]="false">No</option>
-    </select>
-</div>
+<hr/>
 
-<input type="button" value="Add forbidden node" class="btn btn-default" (click)="addForbiddenOne()" /><span> | </span>
-<input type="button" value="Add required node" class="btn btn-default" (click)="addRequiredOne()" />
+<trip-arg-create 
+    [tripArg]="tripArg"
+    [header]="createTripArgHeader" 
+    [allVertices]="allVertices"
+    (onCompleted)="createTripArg($event)">
+</trip-arg-create>
 
-<br>
-<br>
-<div *ngIf="tableMode; else create">
-    <table *ngIf="forbidden?.length !== 0" class="table table-striped">
-        <thead>
-            <tr>
-                <td>Forbidden vertex ID</td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let p of forbidden">
-                <ng-template [ngIf]="temp?.id != p.id">
-                    <td>{{p?.id}}</td>
-                    <td>
-                        <button class="btn btn-sm btn-danger" (click)="dropForbiddenOne(p)">Delete</button>
-                    </td>
-                </ng-template>
-            </tr>
-        </tbody>
-    </table>
-    <table *ngIf="required?.length !== 0" class="table table-striped">
-        <thead>
-            <tr>
-                <td>Required vertex ID</td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let p of required">
-                <ng-template [ngIf]="temp?.id != p.id">
-                    <td>{{p?.id}}</td>
-                    <td>
-                        <button class="btn btn-sm btn-danger" (click)="dropRequiredOne(p)">Delete</button>
-                    </td>
-                </ng-template>
-            </tr>
-        </tbody>
-    </table>
-    <input type="button" value="Submit" class="btn btn-default" (click)="displayData()" />
-</div>
+<hr/>
 
-<ng-template #create>
-    <div class="form-group">
-        <select class="form-control" [(ngModel)]="temp">
-            <option *ngFor="let ver of allVertices" [ngValue]="ver">
-                {{ver?.id}}
-            </option>
-        </select>
-    </div>
-
-    <div>
-        <input type="button" value="Save" (click)="addRequiredVertexNow ? saveRequiredOne(temp) : saveForbiddenOne(temp)" class="btn btn-primary" />
-        <input type="button" value="Discard" (click)="cancel()" class="btn btn-danger" />
-    </div>
-</ng-template>
-
-<div *ngIf="trip != null; else notFound">
+<div *ngIf="trip != null && trip.arrivals != null; else notFound">
     <br>
     <div><b>Found trip</b></div>
     <table class="table table-striped">
         <thead>
             <tr>
                 <td>Vertex ID</td>
+                <td>Arrival time</td>
+                <!-- <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td> -->
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let p of trip?.arrivals">
-                <td>{{p?.vertex?.id}} ({{p?.vertexInterval?.begin}} {{p?.vertexInterval?.end}})</td>
+                <td>{{p?.vertex?.id}}</td>
+                <td>{{p?.vertexInterval?.begin}}</td>
+                <!-- <td></td>
+                <td></td>
+                <td>
+                    <button class="btn btn-sm btn-default" (click)="editArrival(p)">Edit</button>
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-danger" (click)="dropArrival(p)">Delete</button>
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-default" (click)="addArrivalBefore(p)">Add before</button>
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-default" (click)="addArrivalAfter(p)">Add after</button>
+                </td> -->
             </tr>
         </tbody>
     </table>
     <input type="button" value="Convert" class="btn btn-default" (click)="convertToFile()" />
-    
-    <!-- <ng-template #edit>
-        <td>
-            <input type="text" [(ngModel)]="file.name" class="form-control" />
-        </td>
-        <td>
-            <input type="text" [(ngModel)]="file.path" class="form-control" />
-        </td>
-        <td>
-            <input type="button" value="save" (click)="save()" class="btn btn-sm btn-success" />
-            <input type="button" value="discard" (click)="cancel()" class="btn btn-sm btn-warning" />
-        </td>
-    </ng-template> -->
-    
 </div>
+
 <ng-template #notFound>
     <br>
     <div>No trip created</div>
@@ -157,3 +74,6 @@
         </b>
     </div>
 </div>
+
+
+<br><br><br> 

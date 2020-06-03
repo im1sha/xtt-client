@@ -1,0 +1,33 @@
+<div class="form-group">
+    <h4>{{header}}</h4>
+
+    <table *ngIf="(list != null) && (list?.length !== 0)" class="table table-striped">
+        <thead>
+            <tr>
+                <td>Vertex ID</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of list">
+                <td>{{p?.id}}</td>
+                <td>
+                    <button class="btn btn-sm btn-danger" (click)="drop(p)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="form-group">
+        <select class="form-control" [(ngModel)]="temp">
+            <option *ngFor="let ver of allVertices" [ngValue]="ver">
+                {{ver?.id}}
+            </option>
+        </select>       
+    </div>
+
+    <div>
+        <input type="button" value="Add" (click)="add()" class="btn btn-default" />
+    </div>
+
+</div>

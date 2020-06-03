@@ -1,0 +1,12 @@
+<div>
+    <h3>{{header}}</h3>
+    <div class="form-group">
+        <input type="file"
+               id="file" 
+               accept="text/xml" 
+               (change)="handleFileInput($event.target.files)">
+        <br>
+        <input type="button" value="Restore" class="btn btn-primary" (click)="uploadFileToActivity()" />
+    </div>   
+</div>
+
