@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SchemeGetService } from '../services/scheme-get.service';
 import { FileUploadService } from '../services/file-upload.service';
 import { TripService } from '../services/trip.service';
@@ -24,7 +24,7 @@ export class TripComponent implements OnInit {
 
     allVertices: Vertex[] = [];
 
-    trip: Trip = new Trip(new TripArg(), []);
+    @Input() trip: Trip = new Trip(new TripArg(), []);
 
     pathToDownloadArgTrip: string = null;
     pathToDownloadArrivalsTrip: string = null;

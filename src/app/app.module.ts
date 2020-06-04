@@ -18,6 +18,7 @@ import { ArrivalEditComponent } from './arrival-edit.component';
 import { TripGroupComponent } from './trip-group.component';
 import { TripGroupUploadComponent } from './trip-group-upload.component';
 import { TripListComponent } from './trip-list.component';
+import { TripEditComponent } from './trip-edit.component';
 
 const appRoutes: Routes = [
     { path: '', component: ListComponent },
@@ -45,7 +46,8 @@ const appRoutes: Routes = [
         ArrivalEditComponent,
         TripGroupComponent, 
         TripGroupUploadComponent,
-        TripListComponent
+        TripListComponent,
+        TripEditComponent,
     ],
     providers: [],
     bootstrap: [AppComponent]

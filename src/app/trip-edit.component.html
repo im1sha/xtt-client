@@ -1,0 +1,8 @@
+<div class="form-group">
+    <h3>{{header}}</h3>
+    <trip-comp [trip]="trip"></trip-comp>
+    <div>
+        <input type="button" value="Save" (click)="save()" class="btn btn-primary" />
+        <input type="button" value="Discard" (click)="discard()" class="btn btn-danger" />
+    </div>
+</div>
