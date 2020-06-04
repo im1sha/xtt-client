@@ -16,6 +16,8 @@ import { VertexAddComponent } from './vertex-add.component';
 import { TripArgCreateComponent } from './trip-arg-create.component';
 import { ArrivalEditComponent } from './arrival-edit.component';
 import { TripGroupComponent } from './trip-group.component';
+import { TripGroupUploadComponent } from './trip-group-upload.component';
+import { TripListComponent } from './trip-list.component';
 
 const appRoutes: Routes = [
     { path: '', component: ListComponent },
@@ -42,6 +44,8 @@ const appRoutes: Routes = [
         TripArgCreateComponent,
         ArrivalEditComponent,
         TripGroupComponent, 
+        TripGroupUploadComponent,
+        TripListComponent
     ],
     providers: [],
     bootstrap: [AppComponent]

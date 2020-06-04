@@ -6,7 +6,7 @@ import { PathModel } from 'src/models/path-model';
 @Component({
     selector: 'trip-group-comp',
     templateUrl: './trip-group.component.html',
-    providers: [],
+    providers: [TripGroupService],
 })
 export class TripGroupComponent implements OnInit {
 
@@ -23,6 +23,7 @@ export class TripGroupComponent implements OnInit {
 
     uploadFile(event: TripGroup) {
         this.tripGroup = event;
+        console.log(event);
     }
 
     convertToFile() {
