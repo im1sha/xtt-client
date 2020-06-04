@@ -1,0 +1,9 @@
+<div class="form-group">
+    <h3>{{header}}</h3>
+    <trip-comp [tripGroup]="tripGroup"></trip-comp>
+    <div>
+        <input type="button" value="Save" (click)="save()" class="btn btn-primary" />
+        <span> | </span>
+        <input type="button" value="Discard" (click)="discard()" class="btn btn-danger" />
+    </div>
+</div>

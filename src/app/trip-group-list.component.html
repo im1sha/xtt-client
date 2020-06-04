@@ -1,0 +1,54 @@
+<div *ngIf="version?.tripGroups?.length != 0 ; else notFound" class="form-group">          
+    <ng-template [ngIf]="actionPosition === undefined" [ngIfElse]="edit" >
+
+    <h3>Found trips</h3>
+    <table class="table table-striped">               
+        <thead >         
+            <tr>  
+                <td>Trip group name</td>
+                <td>Begin time</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>   
+            </tr>          
+        </thead>                
+
+        <tbody>
+            <tr *ngFor="let p of version?.tripGroups; let i = index">
+                    <td>{{(p && p.name) ? p.name : i }}</td>
+                    <td>{{(p && p.trips && p.trips.length > 0 && p.trips[0].length > 0) ? p.trips[0].arrivals[0]?.vertexInterval?.begin : 0}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-sm btn-default" (click)="editTripGroup(p)">Edit</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" (click)="dropTripGroup(p)">Delete</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-default" (click)="addTripGroupBefore(p)">Add before</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-default" (click)="addTripGroupAfter(p)">Add after</button>
+                    </td> 
+            </tr>
+        </tbody>
+    </table>       
+    </ng-template>
+</div>
+
+<ng-template #edit >
+    <trip-group-edit 
+        [trip]="activeItem"
+        [header]="header" 
+
+        (onChanged)="changed($event)"></trip-group-edit>
+</ng-template>
+
+
+<ng-template #notFound>
+    <h3>No trip group created</h3>
+</ng-template>
