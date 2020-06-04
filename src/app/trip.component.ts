@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { SchemeGetService } from '../services/scheme-get.service';
 import { FileUploadService } from '../services/file-upload.service';
 import { TripService } from '../services/trip.service';
@@ -14,7 +14,7 @@ import { LinkRestoreService } from 'src/services/link-restore.service';
     templateUrl: './trip.component.html',
     providers: [SchemeGetService, TripService, FileUploadService, LinkRestoreService]
 })
-export class TripComponent implements OnInit {
+export class TripComponent implements OnInit, OnChanges {
 
     readonly createTripArgHeader: string = "Create new trip";
     readonly arrivalChangeHeader: string = "Change arrival";
@@ -37,7 +37,22 @@ export class TripComponent implements OnInit {
     ngOnInit() {
         this.schemeService
             .getVertices()
-            .subscribe((data: Vertex[]) => { this.allVertices = data.sort((a, b) => a.id > b.id ? 1 : -1); });
+            .subscribe((data: Vertex[]) =>
+            { 
+                this.allVertices = data.sort((a, b) => a.id > b.id ? 1 : -1);
+                this.restoreLinks(this.trip);
+            });     
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        for (let propName in changes) {
+            if (propName === 'trip') {
+                let newVal: Trip = changes[propName].currentValue;
+                if (this.allVertices && this.allVertices.length > 0) {
+                    this.restoreLinks(newVal);
+                }
+            }
+        }
     }
 
     restoreLinks(trip: Trip) {

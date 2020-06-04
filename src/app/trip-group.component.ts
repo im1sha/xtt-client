@@ -22,6 +22,9 @@ export class TripGroupComponent implements OnInit {
     ngOnInit() { }
 
     uploadFile(event: TripGroup) {
+        if(!event || !event.trips) {
+            event = new TripGroup([]);
+        }
         this.tripGroup = event;
         console.log(event);
     }
