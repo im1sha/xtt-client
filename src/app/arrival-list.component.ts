@@ -12,7 +12,11 @@ export class ArrivalListComponent {
 
     @Input() trip: Trip;
     @Input() allVertices: Vertex[];
-    defaultHeader: string = "Edit arrival";
+
+    readonly defaultHeader: string = "Edit arrival";
+    readonly insertHeader: string = "Insert arrival";
+    header: string = "";
+    insertOrEdit: boolean = false;
     actionPosition: number = undefined;
     activeItem: Arrival = new Arrival(new Interval(), new Interval());
 
@@ -20,7 +24,11 @@ export class ArrivalListComponent {
         if (this.trip && this.trip.arrivals) {
             let index = this.trip.arrivals.findIndex((el) => el === p);
             if (index > -1) {
+
                 this.actionPosition = index;
+                this.insertOrEdit = true;
+                this.header = this.insertHeader;
+                this.activeItem = new Arrival(new Interval(), new Interval());
 
             }
         }
@@ -30,7 +38,12 @@ export class ArrivalListComponent {
         if (this.trip && this.trip.arrivals) {
             let index = this.trip.arrivals.findIndex((el) => el === p);
             if (index > -1) {
+
                 this.actionPosition = index + 1;
+                this.insertOrEdit = true;
+                this.header = this.insertHeader;
+                this.activeItem = new Arrival(new Interval(), new Interval());
+
 
             }
         }
@@ -40,9 +53,9 @@ export class ArrivalListComponent {
         if (this.trip && this.trip.arrivals) {
             let index = this.trip.arrivals.findIndex((el) => el === p);
             if (index > -1) {
-                this.reset();
 
                 this.trip.arrivals.splice(index, 1);
+
             }
         }
     }
@@ -51,19 +64,25 @@ export class ArrivalListComponent {
         if (this.trip && this.trip.arrivals) {
             let index = this.trip.arrivals.findIndex((el) => el === p);
             if (index > -1) {
+
                 this.actionPosition = index;
+                this.insertOrEdit = false;
+                this.header = this.defaultHeader;
                 this.activeItem = this.trip.arrivals[index];
-                console.log(this.activeItem);
+
             }
         }
     }
 
     changed(p: { 'arrival': Arrival, 'ok': boolean }) {
-        this.reset();
-    }
-
-    reset() {
+        // edit
+        if (this.insertOrEdit === false) {
+            this.activeItem.vertex = p.arrival.vertex;
+            this.activeItem.vertexInterval = p.arrival.vertexInterval;
+        }
+        else if (this.insertOrEdit === true){
+            this.trip.arrivals.splice(this.actionPosition, 0, p.arrival);
+        }
         this.actionPosition = undefined;
-        this.activeItem = new Arrival(new Interval(), new Interval());
     }
 }
