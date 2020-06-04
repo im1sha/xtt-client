@@ -1,0 +1,33 @@
+<h1>Trip group {{tripGroup?.name}}</h1>
+
+<hr/>
+
+<trip-group-upload 
+    [header]="tripGroupUploadHeader" 
+    (onCompleted)="uploadFile($event)">
+</trip-group-upload>
+
+<hr/>
+
+<trip-list
+    [tripGroup]="tripGroup">
+</trip-list>
+
+<div *ngIf="tripGroup?.trips?.length != 0" class="form-group">
+    <input type="button" value="Convert trip group" class="btn btn-default" (click)="convertToFile()" />
+</div>
+
+<hr/>
+
+<div *ngIf="pathToDownload != null" class="form-group">
+    <h3>Download trip group</h3>
+    <div class="form-group">
+        <b>
+            <a [href]="downloadUrl+pathToDownload" target="_blank">
+                Converted trip group
+            </a>
+        </b>
+    </div>
+</div>
+
+<br><br><br> 

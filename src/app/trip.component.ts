@@ -37,9 +37,7 @@ export class TripComponent implements OnInit {
     ngOnInit() {
         this.schemeService
             .getVertices()
-            .subscribe((data: Vertex[]) =>
-                this.allVertices = data.sort((a, b) => a.id > b.id ? 1 : -1)
-            );
+            .subscribe((data: Vertex[]) => { this.allVertices = data.sort((a, b) => a.id > b.id ? 1 : -1); });
     }
 
     restoreLinks(trip: Trip) {
@@ -54,9 +52,9 @@ export class TripComponent implements OnInit {
         }
 
         this.restoreService.restoreTripVertices(
-            this.allVertices, 
+            this.allVertices,
             trip.tripArg,
-            trip.arrivals);       
+            trip.arrivals);
 
         this.trip.arrivals = trip.arrivals;
         this.trip.tripArg = trip.tripArg;

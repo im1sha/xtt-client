@@ -15,12 +15,14 @@ import { TripUploadComponent } from './trip-upload.component';
 import { VertexAddComponent } from './vertex-add.component';
 import { TripArgCreateComponent } from './trip-arg-create.component';
 import { ArrivalEditComponent } from './arrival-edit.component';
+import { TripGroupComponent } from './trip-group.component';
 
 const appRoutes: Routes = [
     { path: '', component: ListComponent },
     { path: 'file', component: FileComponent },
     { path: 'path', component: PathComponent },
     { path: 'trip', component: TripComponent },
+    { path: 'trip-group', component: TripGroupComponent },
     //{ path: 'edit/:id', component: ProductEditComponent },
     { path: '**', component: NotFoundComponent }
 ];
@@ -39,6 +41,7 @@ const appRoutes: Routes = [
         VertexAddComponent,
         TripArgCreateComponent,
         ArrivalEditComponent,
+        TripGroupComponent, 
     ],
     providers: [],
     bootstrap: [AppComponent]
