@@ -42,7 +42,7 @@ export class TripComponent implements OnInit {
             );
     }
 
-    restoreTrip(trip: Trip) {
+    restoreLinks(trip: Trip) {
         if (!trip) {
             trip = new Trip(new TripArg(), []);
         }
@@ -61,8 +61,9 @@ export class TripComponent implements OnInit {
         this.trip.tripArg = trip.tripArg;
     }
 
+    // uploads file from client
     uploadFile(trip: Trip) {
-        this.restoreTrip(trip);
+        this.restoreLinks(trip);
     }
 
     convertArgToFile() {
@@ -85,25 +86,16 @@ export class TripComponent implements OnInit {
             });
     }
 
+    // on button 'create' click : removes all trip data but created with trip-arg
     createTripArg(_: any) {
 
         this.tripService
-            .postFileByArg(this.trip?.tripArg)
+            .postObjectByArg(this.trip?.tripArg)
             .subscribe((data: Trip) => {
-                this.restoreTrip(data);
+                this.restoreLinks(data);
                 this.pathToDownloadArgTrip = null;
                 this.pathToDownloadArrivalsTrip = null;
             });
     }
 
-    createTrip(_: any) {
-
-        this.tripService
-            .postFileByFullTrip(this.trip)
-            .subscribe((data: Trip) => {
-                this.restoreTrip(data);
-                this.pathToDownloadArgTrip = null;
-                this.pathToDownloadArrivalsTrip = null;
-            });
-    }
 }

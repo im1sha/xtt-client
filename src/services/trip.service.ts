@@ -25,9 +25,9 @@ export class TripService {
         return this.http.post(this.url + '/file-full', routeArg);
     }
 
-    postObjectByFullTrip(routeArg: Trip) {
-        return this.http.post(this.url + '/object-full', routeArg);
-    }
+    // postObjectByFullTrip(routeArg: Trip) {
+    //     return this.http.post(this.url + '/object-full', routeArg);
+    // }
 
     retrieveTripFromFile(url: string) {
         return this.http.post(this.url + '/' + url, new Object());
