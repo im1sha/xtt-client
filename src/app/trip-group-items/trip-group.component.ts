@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { TripGroup } from 'src/models/trip-group';
 import { TripGroupService } from 'src/services/trip-group.service';
 import { PathModel } from 'src/models/path-model';
@@ -8,7 +8,7 @@ import { PathModel } from 'src/models/path-model';
     templateUrl: './trip-group.component.html',
     providers: [TripGroupService],
 })
-export class TripGroupComponent implements OnInit {
+export class TripGroupComponent implements OnInit, OnChanges  {
 
     readonly tripGroupUploadHeader: string = "TripGroup from xml";
 
@@ -19,7 +19,30 @@ export class TripGroupComponent implements OnInit {
 
     constructor(private tripGroupService: TripGroupService) { }
 
-    ngOnInit() { }
+    restoreLinks(tg: TripGroup) {
+        if (!tg) {
+            tg = new TripGroup([]);
+        }
+        else if (!tg.trips) {
+            tg.trips = [];
+        }
+
+        this.tripGroup.name = tg.name;
+        this.tripGroup.trips = tg.trips;
+    }
+
+    ngOnInit() {
+        // this.restoreLinks(this.tripGroup);
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        for (let propName in changes) {
+            if (propName === 'tripGroup') {
+                let newVal: TripGroup = changes[propName].currentValue;
+                this.restoreLinks(newVal);
+            }
+        }
+    }
 
     uploadFile(event: TripGroup) {
         if(!event || !event.trips) {

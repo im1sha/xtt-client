@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Version } from 'src/models/version';
 import { VersionService } from 'src/services/version.service';
 import { PathModel } from 'src/models/path-model';
@@ -8,7 +8,7 @@ import { PathModel } from 'src/models/path-model';
     templateUrl: './version.component.html',
     providers: [VersionService],
 })
-export class VersionComponent implements OnInit {
+export class VersionComponent implements OnInit , OnChanges {
 
     readonly versionUploadHeader: string = "Version from xml";
 
@@ -19,7 +19,31 @@ export class VersionComponent implements OnInit {
 
     constructor(private versionService: VersionService) { }
 
-    ngOnInit() { }
+
+    restoreLinks(v: Version) {
+        if (!v) {
+            v = new Version([]);
+        }
+        else if (!v.tripGroups) {
+            v.tripGroups = [];
+        }
+
+        this.version.name = v.name;
+        this.version.tripGroups = v.tripGroups;
+    }
+
+    ngOnInit() {
+        // this.restoreLinks(this.version);
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        for (let propName in changes) {
+            if (propName === 'version') {
+                let newVal: Version = changes[propName].currentValue;
+                this.restoreLinks(newVal);
+            }
+        }
+    }
 
     uploadFile(event: Version) {
         if(!event || !event.tripGroups) {
