@@ -18,7 +18,7 @@
 
         <tbody>
             <tr *ngFor="let p of tripGroup?.trips; let i = index">
-                    <td>{{(p?.name) ? p.name : i }}</td>
+                    <td>{{(p && p.tripArg && p.tripArg.name) ? p.tripArg.name : i }}</td>
                     <td>{{(p && p.arrivals && p.arrivals.length > 0) ? p.arrivals[0]?.vertexInterval?.begin : 0}}</td>
                     <td></td>
                     <td></td>
