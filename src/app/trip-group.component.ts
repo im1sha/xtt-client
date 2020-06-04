@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TripGroup } from 'src/models/trip-group';
 import { TripGroupService } from 'src/services/trip-group.service';
 import { PathModel } from 'src/models/path-model';
@@ -12,7 +12,7 @@ export class TripGroupComponent implements OnInit {
 
     readonly tripGroupUploadHeader: string = "TripGroup from xml";
 
-    tripGroup: TripGroup = new TripGroup([]);
+    @Input() tripGroup: TripGroup = new TripGroup([]);
 
     readonly downloadUrl: string = '/api/download/';
     pathToDownload: string = null;
