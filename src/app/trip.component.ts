@@ -53,9 +53,10 @@ export class TripComponent implements OnInit {
             trip.tripArg = new TripArg();
         }
 
-        this.restoreService.restoreTripArgVertices(
+        this.restoreService.restoreTripVertices(
             this.allVertices, 
-            trip.tripArg);       
+            trip.tripArg,
+            trip.arrivals);       
 
         this.trip.arrivals = trip.arrivals;
         this.trip.tripArg = trip.tripArg;

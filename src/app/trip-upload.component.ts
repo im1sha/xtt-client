@@ -47,9 +47,10 @@ export class TripUploadComponent {
                                     ? new TripArg() 
                                     : tr.tripArg;
 
-                                this.restoreService.restoreTripArgVertices(
+                                this.restoreService.restoreTripVertices(
                                     this.allVertices, 
-                                    result.tripArg);                                
+                                    result.tripArg,
+                                    result.arrivals);                                
                             }
                             this.onCompleted.emit(result);
 

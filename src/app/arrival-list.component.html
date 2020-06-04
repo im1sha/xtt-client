@@ -1,8 +1,10 @@
-<div *ngIf="trip?.arrivals?.length != 0 ; else notFound" class="form-group">
+<div *ngIf="trip?.arrivals?.length != 0 ; else notFound" class="form-group">          
+    <ng-template [ngIf]="actionPosition === undefined" [ngIfElse]="edit" >
+
     <h3>Found trip</h3>
-    <table class="table table-striped">
-        <thead>
-            <tr>
+    <table class="table table-striped">               
+        <thead >         
+            <tr>  
                 <td>Vertex ID</td>
                 <td>Arrival time</td>
                 <td></td>
@@ -10,31 +12,45 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td> 
-            </tr>
-        </thead>
+                <td></td>   
+            </tr>          
+        </thead>                
+
         <tbody>
-            <tr *ngFor="let p of trip?.arrivals">
-                <td>{{p?.vertex?.id}}</td>
-                <td>{{p?.vertexInterval?.begin}}</td>
-                <td></td>
-                <td></td>
-                <td>
-                    <button class="btn btn-sm btn-default" (click)="editArrival(p)">Edit</button>
-                </td>
-                <td>
-                    <button class="btn btn-sm btn-danger" (click)="dropArrival(p)">Delete</button>
-                </td>
-                <td>
-                    <button class="btn btn-sm btn-default" (click)="addArrivalBefore(p)">Add before</button>
-                </td>
-                <td>
-                    <button class="btn btn-sm btn-default" (click)="addArrivalAfter(p)">Add after</button>
-                </td> 
+            <tr *ngFor="let p of trip?.arrivals; let i = index">
+                    <td>{{p?.vertex?.id}}</td>
+                    <td>{{p?.vertexInterval?.begin}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-sm btn-default" (click)="editArrival(p)">Edit</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" (click)="dropArrival(p)">Delete</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-default" (click)="addArrivalBefore(p)">Add before</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-default" (click)="addArrivalAfter(p)">Add after</button>
+                    </td> 
             </tr>
         </tbody>
-    </table>
+    </table>       
+    </ng-template>
 </div>
+
+<ng-template #edit >
+    <arrival-edit 
+        [allVertices]="allVertices"
+        [selectedVertex]="activeItem.vertex"
+        [beginTime]="activeItem.vertexInterval.begin"
+        [endTime]="activeItem.vertexInterval.end"
+        [header]="defaultHeader" 
+
+        (onChanged)="changed($event)"></arrival-edit>
+</ng-template>
+
 
 <ng-template #notFound>
     <h3>No trip created</h3>

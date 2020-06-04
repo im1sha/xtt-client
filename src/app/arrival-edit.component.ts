@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { Vertex } from 'src/models/vertex';
 import { Arrival } from 'src/models/arrival';
 import { Interval } from 'src/models/interval';
@@ -15,26 +15,31 @@ export class ArrivalEditComponent {
     @Input() header: string;
     @Input() selectedVertex: Vertex;
 
-    @Output() onSaved = new EventEmitter<Arrival>();
+    @Output() onChanged = new EventEmitter<{ 'arrival': Arrival, 'save': boolean }>();
 
-    result: Arrival = new Arrival(new Interval(), null, null, null);
+    initValues: Arrival = new Arrival(new Interval(), new Interval());
 
     ngOnInit() {
-        this.reset();
+        this.initValues.vertexInterval.begin = this.beginTime ;
+        this.initValues.vertexInterval.end = this.endTime;
+        this.initValues.vertex = this.selectedVertex;
     }
 
     reset() {
-        this.result.vertex = this.selectedVertex;
-        this.result.vertexInterval.begin = this.beginTime;
-        this.result.vertexInterval.end = this.endTime;
+        this.beginTime = this.initValues.vertexInterval.begin;
+        this.endTime = this.initValues.vertexInterval.end;
+        this.selectedVertex = this.initValues.vertex;
     }
-    
-    save() {
-        this.onSaved.emit(this.result);
-    }   
 
-    discard(){
+    save() {
+        this.onChanged.emit({ 
+            'arrival': new Arrival(new Interval(this.beginTime, this.endTime), new Interval(), this.selectedVertex, null), 
+            'save': true 
+        });
+    }
+
+    discard() {
         this.reset();
-        this.onSaved.emit(this.result);
+        this.onChanged.emit({ 'arrival': this.initValues, 'save': false });
     }
 }
