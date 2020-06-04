@@ -26,7 +26,8 @@ export class TripComponent implements OnInit {
 
     trip: Trip = new Trip(new TripArg(), []);
 
-    pathToDownload: string = null;
+    pathToDownloadArgTrip: string = null;
+    pathToDownloadArrivalsTrip: string = null;
 
     constructor(
         private schemeService: SchemeGetService,
@@ -64,28 +65,45 @@ export class TripComponent implements OnInit {
         this.restoreTrip(trip);
     }
 
-    convertToFile() {
-
-       // !! POSTS tripArg AND GETS APPROPRIATE TRIP
-       // but should not
-
-        console.log(this.trip);
+    convertArgToFile() {
         this.tripService
-            .postFile(this.trip?.tripArg)
+            .postFileByArg(this.trip?.tripArg)
             .subscribe((data: PathModel) => {
-                this.pathToDownload = data?.ok
+                this.pathToDownloadArgTrip = data?.ok
                     ? data?.url
                     : null;
             });
     }
 
-    createTripArg(_: TripArg) {
+    convertFullTripToFile() {
+        this.tripService
+            .postFileByFullTrip(this.trip)
+            .subscribe((data: PathModel) => {
+                this.pathToDownloadArrivalsTrip = data?.ok
+                    ? data?.url
+                    : null;
+            });
+    }
+
+    createTripArg(_: any) {
 
         this.tripService
-            .postObject(this.trip?.tripArg)
+            .postFileByArg(this.trip?.tripArg)
             .subscribe((data: Trip) => {
                 this.restoreTrip(data);
-                this.pathToDownload = null;
+                this.pathToDownloadArgTrip = null;
+                this.pathToDownloadArrivalsTrip = null;
+            });
+    }
+
+    createTrip(_: any) {
+
+        this.tripService
+            .postFileByFullTrip(this.trip)
+            .subscribe((data: Trip) => {
+                this.restoreTrip(data);
+                this.pathToDownloadArgTrip = null;
+                this.pathToDownloadArrivalsTrip = null;
             });
     }
 }

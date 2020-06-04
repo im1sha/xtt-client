@@ -24,16 +24,29 @@
 </arrival-list>
 
 <div *ngIf="trip?.arrivals?.length != 0" class="form-group">
-    <input type="button" value="Convert" class="btn btn-default" (click)="convertToFile()" />
+    <input type="button" value="Convert created trip" class="btn btn-default" (click)="convertArgToFile()" />
+    <span> | </span>
+    <input type="button" value="Convert edited trip" class="btn btn-default" (click)="convertFullTripToFile()" />
 </div>
 
 <hr/>
 
-<div *ngIf="pathToDownload != null" class="form-group">
-    <h3>Download result xml file[now sends only trip-arg]</h3>
+<div *ngIf="pathToDownloadArgTrip != null" class="form-group">
+    <h3>Download created trip</h3>
     <div class="form-group">
         <b>
-            <a [href]="downloadUrl+pathToDownload" target="_blank">
+            <a [href]="downloadUrl+pathToDownloadArgTrip" target="_blank">
+                Converted file
+            </a>
+        </b>
+    </div>
+</div>
+
+<div *ngIf="pathToDownloadArrivalsTrip != null" class="form-group">
+    <h3>Download edited trip</h3>
+    <div class="form-group">
+        <b>
+            <a [href]="downloadUrl+pathToDownloadArrivalsTrip" target="_blank">
                 Converted file
             </a>
         </b>
