@@ -42,7 +42,7 @@
 
 <ng-template #edit >
     <trip-group-edit 
-        [trip]="activeItem"
+        [tripGroup]="activeItem"
         [header]="header" 
 
         (onChanged)="changed($event)"></trip-group-edit>
@@ -50,5 +50,5 @@
 
 
 <ng-template #notFound>
-    <h3>No trip group created</h3>
+    <h3>No version created</h3>
 </ng-template>

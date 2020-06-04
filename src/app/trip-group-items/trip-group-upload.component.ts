@@ -5,7 +5,7 @@ import { TripGroup } from 'src/models/trip-group';
 
 @Component({
     selector: 'trip-group-upload',
-    templateUrl: './xml-upload.component.html',
+    templateUrl: '../xml-upload.component.html',
     providers: [FileUploadService, TripGroupService]
 })
 export class TripGroupUploadComponent {

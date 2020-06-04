@@ -8,7 +8,7 @@ import { LinkRestoreService } from 'src/services/link-restore.service';
 
 @Component({
     selector: 'trip-upload',
-    templateUrl: './xml-upload.component.html',
+    templateUrl: '../xml-upload.component.html',
     providers: [FileUploadService, TripService, LinkRestoreService]
 })
 export class TripUploadComponent {

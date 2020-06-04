@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { SchemeGetService } from '../services/scheme-get.service';
-import { FileUploadService } from '../services/file-upload.service';
-import { TripService } from '../services/trip.service';
-import { Vertex } from '../models/vertex';
-import { TripArg } from '../models/trip-arg';
-import { Trip } from '../models/trip';
-import { PathModel } from '../models/path-model';
+import { SchemeGetService } from '../../services/scheme-get.service';
+import { FileUploadService } from '../../services/file-upload.service';
+import { TripService } from '../../services/trip.service';
+import { Vertex } from '../../models/vertex';
+import { TripArg } from '../../models/trip-arg';
+import { Trip } from '../../models/trip';
+import { PathModel } from '../../models/path-model';
 import { Arrival } from 'src/models/arrival';
 import { LinkRestoreService } from 'src/services/link-restore.service';
 

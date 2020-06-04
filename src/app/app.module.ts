@@ -10,22 +10,22 @@ import { FileComponent } from './file.component';
 import { PathComponent } from './path.component';
 import { NotFoundComponent } from './not-found.component';
 
-import { TripComponent } from './trip.component';
-import { ArrivalListComponent } from './arrival-list.component';
-import { TripUploadComponent } from './trip-upload.component';
-import { VertexAddComponent } from './vertex-add.component';
-import { TripArgCreateComponent } from './trip-arg-create.component';
-import { ArrivalEditComponent } from './arrival-edit.component';
+import { TripComponent } from './trip-items/trip.component';
+import { ArrivalListComponent } from './trip-items/arrival-list.component';
+import { TripUploadComponent } from './trip-items/trip-upload.component';
+import { VertexAddComponent } from './trip-items/vertex-add.component';
+import { TripArgCreateComponent } from './trip-items/trip-arg-create.component';
+import { ArrivalEditComponent } from './trip-items/arrival-edit.component';
 
-import { TripGroupComponent } from './trip-group.component';
-import { TripGroupUploadComponent } from './trip-group-upload.component';
-import { TripListComponent } from './trip-list.component';
-import { TripEditComponent } from './trip-edit.component';
+import { TripGroupComponent } from './trip-group-items/trip-group.component';
+import { TripGroupUploadComponent } from './trip-group-items/trip-group-upload.component';
+import { TripListComponent } from './trip-group-items/trip-list.component';
+import { TripEditComponent } from './trip-group-items/trip-edit.component';
 
-import { VersionComponent } from './version.component';
-import { VersionUploadComponent } from './version-upload.component';
-import { TripGroupListComponent } from './trip-group-list.component';
-import { TripGroupEditComponent } from './trip-group-edit.component';
+import { VersionComponent } from './version-items/version.component';
+import { VersionUploadComponent } from './version-items/version-upload.component';
+import { TripGroupListComponent } from './version-items/trip-group-list.component';
+import { TripGroupEditComponent } from './version-items/trip-group-edit.component';
 
 const appRoutes: Routes = [
     { path: '', component: ListComponent },
