@@ -1,7 +1,7 @@
 <div *ngIf="version?.tripGroups?.length != 0 ; else notFound" class="form-group">          
     <ng-template [ngIf]="actionPosition === undefined" [ngIfElse]="edit" >
 
-    <h3>Found trips</h3>
+    <h3>Found trip groups</h3>
     <table class="table table-striped">               
         <thead >         
             <tr>  
@@ -19,7 +19,7 @@
         <tbody>
             <tr *ngFor="let p of version?.tripGroups; let i = index">
                     <td>{{(p && p.name) ? p.name : i }}</td>
-                    <td>{{(p && p.trips && p.trips.length > 0 && p.trips[0].length > 0) ? p.trips[0].arrivals[0]?.vertexInterval?.begin : 0}}</td>
+                    <td>{{(p && p.trips && p.trips.length > 0 && p.trips[0].arrivals && p.trips[0].arrivals.length > 0 && p.trips[0].arrivals[0] && p.trips[0].arrivals[0].vertexInterval) ? p.trips[0].arrivals[0].vertexInterval.begin : 0}}</td>
                     <td></td>
                     <td></td>
                     <td>
