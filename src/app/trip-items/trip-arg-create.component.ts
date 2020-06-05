@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges, OnChanges, OnInit } from '@angular/core';
 import { Trip } from 'src/models/trip';
 import { TripArg } from 'src/models/trip-arg';
 import { Vertex } from 'src/models/vertex';
@@ -8,15 +8,40 @@ import { Vertex } from 'src/models/vertex';
     templateUrl: './trip-arg-create.component.html',
     providers: []
 })
-export class TripArgCreateComponent {
+export class TripArgCreateComponent implements OnInit, OnChanges {
 
     readonly forbiddenHeader: string = "Forbidden vertices";
     readonly requiredHeader: string = "Required vertices";
 
     @Input() header: string = "";
     @Input() trip: Trip;
-    @Input() allVertices : Vertex[];
+    @Input() allVertices: Vertex[];
     @Output() onCompleted = new EventEmitter<TripArg>();
+
+    ngOnInit() {
+        this.restoreLinks(this.trip);
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        for (let propName in changes) {
+            if (propName === 'trip') {
+                let newVal: Trip = changes[propName].currentValue;
+                this.restoreLinks(newVal);
+            }
+        }
+    }
+
+    restoreLinks(trip: Trip) {
+        if (trip && trip.tripArg && (!trip.tripArg.forbiddenNodes || !trip.tripArg.requiredNodes)) {
+            if (!trip.tripArg.forbiddenNodes) {
+                trip.tripArg.forbiddenNodes = [];
+            }
+            if (!trip.tripArg.requiredNodes) {
+                trip.tripArg.requiredNodes = [];
+            }
+        }
+    }
+
 
     save() {
         this.onCompleted.emit(this.trip?.tripArg);
