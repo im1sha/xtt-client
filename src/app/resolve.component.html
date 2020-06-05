@@ -1,0 +1,33 @@
+<h1>{{header}}</h1>
+
+<hr/>
+
+<input type="button" value="Create conflict version" class="btn btn-default" (click)="createVersion()" />
+
+<div *ngIf="pathToInitialDownload != null" class="form-group">
+    <h3>Download conflict version</h3>
+    <div class="form-group">
+        <b>
+            <a [href]="downloadUrl+pathToInitialDownload" target="_blank">
+                Initial version
+            </a>
+        </b>
+    </div>
+</div>
+
+<div *ngIf="pathToInitialDownload != null" class="form-group">
+    <input type="button" value="Resolve" class="btn btn-default" (click)="resolve()" />
+</div>
+
+<hr/>
+
+<div *ngIf="pathToFinalDownload != null" class="form-group">
+    <h3>Download final versfion</h3>
+    <div class="form-group">
+        <b>
+            <a [href]="downloadUrl+pathToFinalDownload" target="_blank">
+                Final version
+            </a>
+        </b>
+    </div>
+</div>

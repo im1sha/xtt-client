@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { ListComponent } from './list.component';
-import { FileComponent } from './file.component'; 
+import { FileComponent } from './file.component';
 import { PathComponent } from './path.component';
 import { NotFoundComponent } from './not-found.component';
 
@@ -27,6 +27,10 @@ import { VersionUploadComponent } from './version-items/version-upload.component
 import { TripGroupListComponent } from './version-items/trip-group-list.component';
 import { TripGroupEditComponent } from './version-items/trip-group-edit.component';
 
+import { ResolveCircleComponent } from './resolve-circle.component';
+
+import { ResolveOngoingComponent } from './resolve-ongoing.component';
+
 const appRoutes: Routes = [
     { path: '', component: ListComponent },
     { path: 'file', component: FileComponent },
@@ -34,35 +38,39 @@ const appRoutes: Routes = [
     { path: 'trip', component: TripComponent },
     { path: 'trip-group', component: TripGroupComponent },
     { path: 'version', component: VersionComponent },
-    //{ path: 'edit/:id', component: ProductEditComponent },
+    { path: 'resolve-circle', component: ResolveCircleComponent },
+    { path: 'resolve-ongoing', component: ResolveOngoingComponent },
     { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
     declarations: [
-        AppComponent, 
+        AppComponent,
         ListComponent,
         FileComponent,
-        PathComponent,  
-        NotFoundComponent, 
+        PathComponent,
+        NotFoundComponent,
 
         TripComponent,
         ArrivalListComponent,
         TripUploadComponent,
         VertexAddComponent,
         TripArgCreateComponent,
-        ArrivalEditComponent,  
+        ArrivalEditComponent,
 
-        TripGroupComponent, 
+        TripGroupComponent,
         TripGroupUploadComponent,
         TripListComponent,
         TripEditComponent,
-        
+
         VersionComponent,
         VersionUploadComponent,
         TripGroupListComponent,
         TripGroupEditComponent,
+
+        ResolveCircleComponent,
+        ResolveOngoingComponent,
     ],
     providers: [],
     bootstrap: [AppComponent]
