@@ -11,7 +11,7 @@ import { PathModel } from 'src/models/path-model';
 export class ResolveCircleComponent {
 
     constructor(private circleService: ResolveCircleService) { }
-    header: string;
+    readonly header: string = "Circle move resolver";
     readonly downloadUrl: string = '/api/download/';
     pathToFinalDownload: string;
     pathToInitialDownload: string;
