@@ -12,6 +12,10 @@ export class ResolveOngoingComponent {
     constructor(private ongoingService: ResolveOngoingService) { }
     readonly header: string = "Ongoing traffic resolver";
     readonly downloadUrl: string = '/api/download/';
+
+    readonly conflictText: string = 'There\'s 1 ongoing traffic conflict';
+    readonly resolveText: string = 'There\'s no conflicts';
+
     pathToFinalDownload: string;
     pathToInitialDownload: string;
 

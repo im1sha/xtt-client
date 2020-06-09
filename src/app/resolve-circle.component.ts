@@ -13,6 +13,10 @@ export class ResolveCircleComponent {
     constructor(private circleService: ResolveCircleService) { }
     readonly header: string = "Circle move resolver";
     readonly downloadUrl: string = '/api/download/';
+    
+    readonly conflictText: string = 'There\'re 5 conflicting trip groups';
+    readonly resolveText: string = 'There\'s no conflicts';
+
     pathToFinalDownload: string;
     pathToInitialDownload: string;
 

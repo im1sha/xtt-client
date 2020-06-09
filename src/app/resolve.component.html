@@ -13,6 +13,7 @@
             </a>
         </b>
     </div>
+    <div><b>{{conflictText}}</b></div>
 </div>
 
 <div *ngIf="pathToInitialDownload != null" class="form-group">
@@ -22,7 +23,7 @@
 <hr/>
 
 <div *ngIf="pathToFinalDownload != null" class="form-group">
-    <h3>Download final versfion</h3>
+    <h3>Download final version</h3>
     <div class="form-group">
         <b>
             <a [href]="downloadUrl+pathToFinalDownload" target="_blank">
@@ -30,4 +31,5 @@
             </a>
         </b>
     </div>
+    <div><b>{{resolveText}}</b></div>
 </div>
