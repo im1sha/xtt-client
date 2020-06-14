@@ -31,6 +31,9 @@ import { ResolveCircleComponent } from './resolve-circle.component';
 
 import { ResolveOngoingComponent } from './resolve-ongoing.component';
 
+import {TimetableComponent} from './timetable.component';
+import {TimetableUploadComponent} from './timetable-upload.component';
+
 const appRoutes: Routes = [
     { path: '', component: ListComponent },
     { path: 'file', component: FileComponent },
@@ -40,6 +43,7 @@ const appRoutes: Routes = [
     { path: 'version', component: VersionComponent },
     { path: 'resolve-circle', component: ResolveCircleComponent },
     { path: 'resolve-ongoing', component: ResolveOngoingComponent },
+    { path: 'timetable', component: TimetableComponent},
     { path: '**', component: NotFoundComponent }
 ];
 
@@ -71,6 +75,9 @@ const appRoutes: Routes = [
 
         ResolveCircleComponent,
         ResolveOngoingComponent,
+
+        TimetableComponent,
+        TimetableUploadComponent,
     ],
     providers: [],
     bootstrap: [AppComponent]

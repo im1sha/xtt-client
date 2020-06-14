@@ -1,0 +1,31 @@
+<h1>Timetable</h1>
+
+<hr/>
+
+<tt-upload 
+    [header]="header" 
+    (onCompleted)="uploadFile($event)">
+</tt-upload>
+
+<hr/>
+
+<div *ngIf="list != null" class="form-group">          
+    <table class="table table-striped">               
+        <thead>         
+            <tr>  
+                <td>arrival time</td>
+                <td>from</td>
+                <td>to</td>
+                <td>name</td>
+            </tr>          
+        </thead>                
+
+        <!-- <tbody>
+            <tr *ngFor="let p of tripGroup?.trips; let i = index">
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody> -->
+    </table>       
+</div>
+
