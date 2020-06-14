@@ -9,23 +9,34 @@
 
 <hr/>
 
-<div *ngIf="list != null" class="form-group">          
-    <table class="table table-striped">               
-        <thead>         
-            <tr>  
-                <td>arrival time</td>
-                <td>from</td>
-                <td>to</td>
-                <td>name</td>
-            </tr>          
-        </thead>                
+<div *ngIf="list && list.items" >    
+    <div *ngFor="let p of list?.items; let i=index;">
 
-        <!-- <tbody>
-            <tr *ngFor="let p of tripGroup?.trips; let i = index">
-                <td></td>
-                <td></td>
-            </tr>
-        </tbody> -->
-    </table>       
+        <h3>Vertex {{p.key}}</h3>      
+        <div class="form-group">
+            <table class="table table-striped">               
+                <thead>         
+                    <tr>  
+                        <td>Arrival time</td>
+                        <td>From vertex</td>
+                        <td>To vertex</td>
+                        <td>Name</td>
+                    </tr>          
+                </thead>                
+
+                <tbody>
+                    <tr *ngFor="let item of p?.value; let i = index">
+                        <td>{{math.trunc(item?.beginTime / 60)}} :
+                            {{('0' + (item?.beginTime % 60)).slice(-2)}} ..
+                            {{math.trunc(item?.endTime / 60)}} :
+                            {{('0' + (item?.endTime % 60)).slice(-2)}}</td>
+                        <td>{{item?.tripBeginVertexId}}</td>
+                        <td>{{item?.tripEndVertexId}}</td>
+                        <td>{{item?.tripGroupName}} {{item?.tripName}}</td>
+                    </tr>
+                </tbody>
+            </table>    
+        </div> 
+    </div> 
 </div>
 

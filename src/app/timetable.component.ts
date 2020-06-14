@@ -10,9 +10,9 @@ import { TimetableService } from 'src/services/timetable.service';
 export class TimetableComponent {
 
     readonly downloadUrl: string = '/api/download/';
-    pathToDownload: string = null;
     header: string = "Upload version";
     list: TimetableItemList = null;
+    math = Math;
 
     uploadFile(event: TimetableItemList) {
         if(!event || !event.isOk) {
